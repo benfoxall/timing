@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Timers</title>
+</head>
+<body>
+  <h1>timers</h1>
+
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+  var samples = [];
+
+  function request(cb){
+
+    // this can be a lot more accurate with
+    var startD = Date.now();
+    var startP = performance.now();
+
+    var oReq = new XMLHttpRequest();
+    oReq.onload = function(data){
+      var endD = Date.now();
+      var endP = performance.now();
+
+      var remote = parseInt(oReq.responseText);
+
+      samples.push({
+        remote: remote,
+        date: (endD+startD)/2,
+        perf: (endP+startP)/2
+      });
+
+      cb&&cb.call(this);
+    };
+    oReq.open("get", "/time?"+Date.now(), true);
+    oReq.send();
+  }
+
+  // request and sync our timestamps
+  function sync(){
+    var next;
+    if(samples.length>100) return;
+
+    request(function(){
+      next = next || setTimeout(sync, 15000);
+    });
+
+    // schedule re-request after 10s
+    setTimeout(function(){
+      next = next || setTimeout(sync, 15000);
+    }, 10000);
+    
+  }
+
+  sync();
+
+  </script>
+
+</body>
+</html>

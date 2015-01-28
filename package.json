@@ -1,0 +1,23 @@
+{
+  "name": "timing",
+  "version": "1.0.0",
+  "description": "some different methods for syncing up times between browsers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benfoxall/timing.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benfoxall/timing/issues"
+  },
+  "homepage": "https://github.com/benfoxall/timing",
+  "dependencies": {
+    "express": "^4.11.1"
+  }
+}
